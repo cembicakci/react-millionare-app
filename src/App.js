@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import './App.css'
+import Trivia from './components/Trivia';
 
 function App() {
+
+  const [questionNumber, setQuestionNumber] = useState(1);
 
   const moneyPyramid = [
     { id: 1, amount: '$ 100' },
@@ -23,11 +26,19 @@ function App() {
 
   return (
     <div className="App">
-      <div className="main">main</div>
+      <div className="main">
+        <div className='top'>
+          <div className='timer'>30</div>
+        </div>
+        <div className='bottom'>
+          <Trivia />
+        </div>
+      </div>
+
       <div className="pyramid">
         <ul className='moneyList'>
           {moneyPyramid.map(money => (
-            <li className='moneyListItem'>
+            <li className={questionNumber === money.id ? 'moneyListItem active' : 'moneyListItem'}>
               <span className='moneyListItemNumber'>{money.id}</span>
               <span className='moneyListItemAmount'>{money.amount}</span>
             </li>
