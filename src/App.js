@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import './App.css'
 import Timer from './components/Timer';
 import Trivia from './components/Trivia';
+import Start from './components/Start';
 
 function App() {
 
+  const [userName, setUserName] = useState('');
   const [questionNumber, setQuestionNumber] = useState(1);
   const [stop, setStop] = useState(false);
   const [earned, setEarned] = useState('$ 0');
@@ -102,31 +104,37 @@ function App() {
 
   return (
     <div className="App">
-      <div className="main">
-        {stop ? (<h1 className='endText'>You earned: {earned} money</h1>) : (
-          <>
-            <div className='top'>
-              <div className='timer'>
-                <Timer setStop={setStop} questionNumber={questionNumber} />
-              </div>
-            </div>
-            <div className='bottom'>
-              <Trivia data={data} setStop={setStop} setQuestionNumber={setQuestionNumber} questionNumber={questionNumber} />
-            </div>
-          </>
-        )}
-      </div>
+      {userName ? (
+        <>
+          <div className="main">
+            {stop ? (<h1 className='endText'>You earned: {earned} money</h1>) : (
+              <>
+                <div className='top'>
+                  <div className='timer'>
+                    <Timer setStop={setStop} questionNumber={questionNumber} />
+                  </div>
+                </div>
+                <div className='bottom'>
+                  <Trivia data={data} setStop={setStop} setQuestionNumber={setQuestionNumber} questionNumber={questionNumber} />
+                </div>
+              </>
+            )}
+          </div>
 
-      <div className="pyramid">
-        <ul className='moneyList'>
-          {moneyPyramid.map(money => (
-            <li className={questionNumber === money.id ? 'moneyListItem active' : 'moneyListItem'} key={money.id}>
-              <span className='moneyListItemNumber'>{money.id}</span>
-              <span className='moneyListItemAmount'>{money.amount}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+          <div className="pyramid">
+            <ul className='moneyList'>
+              {moneyPyramid.map(money => (
+                <li className={questionNumber === money.id ? 'moneyListItem active' : 'moneyListItem'} key={money.id}>
+                  <span className='moneyListItemNumber'>{money.id}</span>
+                  <span className='moneyListItemAmount'>{money.amount}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </>
+      ) : <Start setUserName={setUserName} />}
+
     </div>
   );
 }
