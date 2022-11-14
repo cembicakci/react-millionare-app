@@ -7,6 +7,8 @@ import wrong from '../assets/wrong.mp3'
 
 function Trivia({ data, setStop, setQuestionNumber, questionNumber }) {
 
+    console.log("DATA", data)
+
     const [question, setQuestion] = useState('');
     const [selectedAnswer, setSelectedAnswer] = useState('');
     const [className, setClasName] = useState('');
@@ -14,11 +16,21 @@ function Trivia({ data, setStop, setQuestionNumber, questionNumber }) {
     const [correctAnswer] = useSound(correct)
     const [wrongAnswer] = useSound(wrong)
 
+
+    const incorrect_answers = question.incorrect_answers;
+    const correct_answer = question.correct_answer;
+
+    // const answers = [incorrect_answers + correct_answer];
+    console.log("incorrect_answers", incorrect_answers)
+    console.log("correct_answer", correct_answer)
+
+    const answers = (incorrect_answers + `,${correct_answer}`).split(',').sort(() => Math.random() - 0.5)
+    console.log(answers)
+
     useEffect(() => {
         letsPlay()
     }, [letsPlay])
 
-    console.log(data)
 
     useEffect(() => {
         setQuestion(data[questionNumber - 1])
@@ -32,12 +44,21 @@ function Trivia({ data, setStop, setQuestionNumber, questionNumber }) {
 
     const handleClick = (answer) => {
         setSelectedAnswer(answer)
-        setClasName('active answer')
+        setClasName('answer active')
+
         delay(3000, () => {
-            setClasName(answer.correct ? 'answer correct' : 'answer wrong')
+            if (answer === question.correct_answer) {
+                console.log("HEREEEE IS WORKINNG")
+                setClasName('answer correct')
+            } else {
+                console.log("ANOTHERRRRR IS WOKINGGG")
+                setClasName('answer wrong')
+            }
+
         })
         delay(5000, () => {
-            if (answer.correct) {
+            if (answer === question.correct_answer) {
+                console.log("HERE IS WORKINNG")
                 correctAnswer()
                 delay(1000, () => {
                     setQuestionNumber(prev => prev + 1)
@@ -45,6 +66,7 @@ function Trivia({ data, setStop, setQuestionNumber, questionNumber }) {
                 })
 
             } else {
+                console.log("ANOTHER IS WOKINGGG")
                 wrongAnswer()
                 delay(1000, () => {
                     setStop(true)
@@ -53,12 +75,13 @@ function Trivia({ data, setStop, setQuestionNumber, questionNumber }) {
             }
         })
     }
+
     return (
         <div className='trivia'>
             <div className="question">{question?.question}</div>
             <div className="answers">
-                {question && question.answers.map(answer => (
-                    <div className={selectedAnswer === answer ? className : "answer"} key={answer.id} onClick={() => handleClick(answer)}>{answer.text}</div>
+                {question && answers.map(answer => (
+                    <div className={selectedAnswer === answer ? className : "answer"} key={answer.id} onClick={() => handleClick(answer)}>{answer}</div>
                 ))}
             </div>
         </div>
