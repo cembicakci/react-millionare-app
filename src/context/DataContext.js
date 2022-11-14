@@ -7,6 +7,7 @@ export const DataProvider = ({ children }) => {
 
 
     const [data, setData] = useState();
+    const [question, setQuestion] = useState('');
 
     const fetchDatas = async () => {
         const response = await axios.get(`https://opentdb.com/api.php?amount=15&category=9&difficulty=medium&type=multiple`);
