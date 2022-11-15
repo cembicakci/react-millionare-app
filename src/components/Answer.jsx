@@ -17,7 +17,7 @@ function Answer({ answer, question, setStop, setQuestionNumber }) {
         setClasName('answer active')
 
         delay(3000, () => {
-            if (answer === question.correct_answer) {
+            if (answer === question.correctAnswer) {
                 setClasName('answer correct')
             } else {
                 setClasName('answer wrong')
@@ -25,7 +25,7 @@ function Answer({ answer, question, setStop, setQuestionNumber }) {
 
         })
         delay(5000, () => {
-            if (answer === question.correct_answer) {
+            if (answer === question.correctAnswer) {
                 correctAnswer()
                 delay(1000, () => {
                     setQuestionNumber(prev => prev + 1)

@@ -13,14 +13,13 @@ function Trivia({ data, setStop, setQuestionNumber, questionNumber }) {
     const [letsPlay] = useSound(play)
 
 
-    const incorrect_answers = question.incorrect_answers;
-    const correct_answer = question.correct_answer;
+    const incorrect_answers = question.incorrectAnswers;
+    const correct_answer = question.correctAnswer;
 
-    // const answers = [incorrect_answers + correct_answer];
     console.log("incorrect_answers", incorrect_answers)
     console.log("correct_answer", correct_answer)
 
-    // console.log("here is working")
+    
     const answers = (incorrect_answers + `,${correct_answer}`).split(',').sort(() => Math.random() - 0.5)
     // const answers = incorrect_answers
     // console.log(answers)

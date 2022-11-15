@@ -10,8 +10,9 @@ export const DataProvider = ({ children }) => {
     const [question, setQuestion] = useState('');
 
     const fetchDatas = async () => {
-        const response = await axios.get(`https://opentdb.com/api.php?amount=15&category=9&difficulty=medium&type=multiple`);
-        setData(response.data.results)
+        // const response = await axios.get(`https://opentdb.com/api.php?amount=15&category=9&difficulty=medium&type=multiple`);
+        const response = await axios.get(`https://the-trivia-api.com/api/questions?limit=15&difficulty=medium`);
+        setData(response.data)
     }
 
     const values = { fetchDatas, data, setData }
