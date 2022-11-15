@@ -16,7 +16,7 @@ function Timer({ setStop, questionNumber }) {
     }, [setStop, timer])
 
     useEffect(() => {
-        setTimer(30)
+        setTimer(3000)
     }, [questionNumber])
     return timer
 }

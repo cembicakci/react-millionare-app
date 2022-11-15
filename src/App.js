@@ -3,6 +3,7 @@ import './App.css'
 import Timer from './components/Timer';
 import Trivia from './components/Trivia';
 import Start from './components/Start';
+import Confetti from 'react-confetti'
 // import { data } from './data';
 
 import DataContext from './context/DataContext';
@@ -15,6 +16,7 @@ function App() {
   const [questionNumber, setQuestionNumber] = useState(1);
   const [stop, setStop] = useState(false);
   const [earned, setEarned] = useState('$ 0');
+  const [countCorrectAnswer, setCountCorrectAnswer] = useState(0);
 
   const { data } = useContext(DataContext)
   const { fetchDatas } = useContext(DataContext)
@@ -45,15 +47,21 @@ function App() {
 
   useEffect(() => {
     questionNumber > 1 && setEarned(moneyPyramid.find(m => m.id === questionNumber - 1).amount)
-
   }, [moneyPyramid, questionNumber])
+
 
   return (
     <div className="App">
+
+      {countCorrectAnswer === 15 ?
+        <>
+          <Confetti width='1000px' height='1000px' />
+        </>
+        : ''}
       {userName ? (
         <>
           <div className="main">
-            {stop ? (<h1 className='endText'>You earned: {earned} money</h1>) : (
+            {stop ? (<h1 className='endText'>{countCorrectAnswer === 3 ? 'Congrats! You are a millionare🎉' : `You earned: ${earned} money`}</h1>) : (
               <>
                 <div className='top'>
                   <div className='timer'>
@@ -61,7 +69,9 @@ function App() {
                   </div>
                 </div>
                 <div className='bottom'>
-                  <Trivia data={data} setStop={setStop} setQuestionNumber={setQuestionNumber} questionNumber={questionNumber} />
+                 { questionNumber &&
+                   <Trivia data={data} setStop={setStop} setQuestionNumber={setQuestionNumber} questionNumber={questionNumber} setCountCorrectAnswer={setCountCorrectAnswer} countCorrectAnswer={countCorrectAnswer}/>
+                 }
                 </div>
               </>
             )}

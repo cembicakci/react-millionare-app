@@ -3,10 +3,10 @@ import useSound from 'use-sound';
 import correct from '../assets/correct.mp3'
 import wrong from '../assets/wrong.mp3'
 
-function Answer({ answer, question, setStop, setQuestionNumber }) {
+function Answer({ answer, question, setStop, setQuestionNumber, setCountCorrectAnswer, countCorrectAnswer }) {
 
     const [selectedAnswer, setSelectedAnswer] = useState('');
-    const [className, setClasName] = useState('');
+    const [className, setClassName] = useState('');
 
     const [correctAnswer] = useSound(correct)
     const [wrongAnswer] = useSound(wrong)
@@ -14,23 +14,26 @@ function Answer({ answer, question, setStop, setQuestionNumber }) {
 
     const handleClick = (answer) => {
         setSelectedAnswer(answer)
-        setClasName('answer active')
+        setClassName('answer active')
 
-        delay(3000, () => {
-            if (answer === question.correctAnswer) {
-                setClasName('answer correct')
-            } else {
-                setClasName('answer wrong')
-            }
+
+        delay(1000, () => {
+            setClassName(answer === question.correctAnswer ? "answer correct" : "answer wrong");
+            setCountCorrectAnswer(prev => prev + 1)
 
         })
-        delay(5000, () => {
+        delay(1000, () => {
             if (answer === question.correctAnswer) {
                 correctAnswer()
+
                 delay(1000, () => {
                     setQuestionNumber(prev => prev + 1)
                     setSelectedAnswer('')
                 })
+
+                if (countCorrectAnswer === 14) {
+                    setStop(true)
+                }
 
             } else {
                 wrongAnswer()
@@ -50,7 +53,7 @@ function Answer({ answer, question, setStop, setQuestionNumber }) {
 
 
     return (
-        <div className={selectedAnswer === answer ? className : "answer"} key={answer.id} onClick={() => handleClick(answer)}>{answer}</div>
+        <div className={selectedAnswer === answer ? className : "answer"} key={answer.id} onClick={() => !selectedAnswer && handleClick(answer)}>{answer}</div>
     )
 }
 
