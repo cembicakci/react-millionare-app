@@ -61,7 +61,7 @@ function App() {
       {userName ? (
         <>
           <div className="main">
-            {stop ? (<h1 className='endText'>{countCorrectAnswer === 3 ? 'Congrats! You are a millionare🎉' : `You earned: ${earned} money`}</h1>) : (
+            {stop ? (<h1 className='endText'>{countCorrectAnswer === 15 ? 'Congrats! You are a millionare🎉' : `You earned: ${earned} money`}</h1>) : (
               <>
                 <div className='top'>
                   <div className='timer'>

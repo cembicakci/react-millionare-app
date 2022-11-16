@@ -17,15 +17,15 @@ function Answer({ answer, question, setStop, setQuestionNumber, setCountCorrectA
         setClassName('answer active')
 
 
-        delay(1000, () => {
+        delay(3000, () => {
             setClassName(answer === question.correctAnswer ? "answer correct" : "answer wrong");
-            setCountCorrectAnswer(prev => prev + 1)
 
         })
-        delay(1000, () => {
+        delay(5000, () => {
             if (answer === question.correctAnswer) {
                 correctAnswer()
-
+                setCountCorrectAnswer(prev => prev + 1)
+                
                 delay(1000, () => {
                     setQuestionNumber(prev => prev + 1)
                     setSelectedAnswer('')

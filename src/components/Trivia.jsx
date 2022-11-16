@@ -9,6 +9,7 @@ function Trivia({ data, setStop, setQuestionNumber, questionNumber, setCountCorr
     console.log("DATA", data)
 
     const [question, setQuestion] = useState('');
+    console.log(question)
     const [letsPlay] = useSound(play)
 
 
@@ -18,8 +19,8 @@ function Trivia({ data, setStop, setQuestionNumber, questionNumber, setCountCorr
     console.log("incorrect_answers", incorrect_answers)
     console.log("correct_answer", correct_answer)
 
-    const answers = (incorrect_answers + `,${correct_answer}`).split(',').sort(() => Math.random() - 0.5)
-
+    const answers = (incorrect_answers + `,${correct_answer}`).split(',').sort(() => Math.random() - 0.5);
+    // const answers = incorrect_answers.splice(Math.floor(Math.random() * (incorrect_answers.length + 1)), 0, correct_answer)
     console.log(answers)
 
     useEffect(() => {
