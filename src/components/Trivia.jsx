@@ -6,22 +6,22 @@ import Answer from './Answer';
 
 function Trivia({ data, setStop, setQuestionNumber, questionNumber, setCountCorrectAnswer, countCorrectAnswer }) {
 
-    console.log("DATA", data)
+    // console.log("DATA", data)
 
     const [question, setQuestion] = useState('');
-    console.log(question)
+    // console.log(question)
     const [letsPlay] = useSound(play)
 
 
     const incorrect_answers = question?.incorrectAnswers;
     const correct_answer = question?.correctAnswer;
 
-    console.log("incorrect_answers", incorrect_answers)
-    console.log("correct_answer", correct_answer)
+    // console.log("incorrect_answers", incorrect_answers)
+    // console.log("correct_answer", correct_answer)
 
     const answers = (incorrect_answers + `,${correct_answer}`).split(',').sort(() => Math.random() - 0.5);
     // const answers = incorrect_answers.splice(Math.floor(Math.random() * (incorrect_answers.length + 1)), 0, correct_answer)
-    console.log(answers)
+    // console.log(answers)
 
     useEffect(() => {
         letsPlay()

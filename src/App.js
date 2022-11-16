@@ -25,7 +25,7 @@ function App() {
     fetchDatas()
   }, [])
 
-  console.log(data)
+  // console.log(data)
 
   const moneyPyramid = [
     { id: 1, amount: '$ 100' },
